@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Parquímetro</title>
+</head>
+<body>
+
+  <h1>Simulador de Parquímetro</h1>
+
+  <label for="valorDepositado">Digite o valor depositado (R$): </label>
+  <input type="number" step="0.01" id="valorDepositado" placeholder="Ex: 2.50">
+
+  <button onclick="calcularTempoETroco()">Calcular</button>
+
+  <script>
+    function calcularTempoETroco() {
+      const valorDepositado = parseFloat(document.getElementById('valorDepositado').value);
+
+      const tabelaParquimetro = [
+        { valor: 1.00, tempo: 30 },
+        { valor: 1.75, tempo: 60 },
+        { valor: 3.00, tempo: 120 }
+      ];
+
+      let tempoPermanencia = 0;
+      let troco = 0;
+
+      if (valorDepositado < tabelaParquimetro[0].valor) {
+        alert("Valor Insuficiente");
+        return;
+      }
+
+      for (let i = tabelaParquimetro.length - 1; i >= 0; i--) {
+        if (valorDepositado >= tabelaParquimetro[i].valor) {
+          tempoPermanencia = tabelaParquimetro[i].tempo;
+          troco = valorDepositado - tabelaParquimetro[i].valor;
+          break;
+        }
+      }
+
+      alert(`Tempo de permanência: ${tempoPermanencia} minutos\nTroco: R$ ${troco.toFixed(2)}`);
+    }
+  </script>
+
+</body>
+</html>
+
